@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>注册</title>
+    <link rel="stylesheet" type="text/css" href="css/common.css">
+    <link rel="stylesheet" href="css/register.css">
+    <!--导入jquery-->
+    <script src="js/jquery-3.3.1.js"></script>
+</head>
+<body>
+<!--引入头部-->
+<div id="header"></div>
+<!-- 头部 end -->
+<div class="rg_layout">
+    <div class="rg_form clearfix">
+        <div class="rg_form_left">
+            <p>新用户注册</p>
+            <p>USER REGISTER</p>
+        </div>
+        <div class="rg_form_center">
+
+            <!--注册表单-->
+            <form id="registerForm" method="post" action="/checkCode">
+                <!--提交处理请求的标识符-->
+                <input type="hidden" name="action" value="register">
+                <table style="margin-top: 25px;">
+                    <tr>
+                        <td class="td_left">
+                            <label for="username">用户名</label>
+                        </td>
+                        <td class="td_right">
+                            <input type="text" id="username" name="username" placeholder="请输入账号">
+                        </td>
+                        <script type="text/javascript">
+                            //用户名username onfocus事件
+                            var eleUserName = document.getElementById("username");
+                            eleUserName.onfocus = function () {
+                                console.log("获取焦点");
+                            }
+                            //用户名username onblur事件
+                            eleUserName.onblur = function (ev) {
+                                //判断为空,是空就提示需要输入，非空就的ajax,校验用户名是否是否重复
+                                if (eleUserName.value == "") {
+                                    console.log("需要输入用户名");
+                                } else {
+                                	var xmlHttp =new XMLHttpRequest();
+									var userNameValue = eleUserName.value;
+									var sendValue = "username="+userNameValue;
+									xmlHttp.open("POST","checkUserName",true);
+									//POST请求需要写请求头
+									xmlHttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+									xmlHttp.send(sendValue);
+                                	//json格式发送字符串
+                                    var userNameValue = eleUserName.value;
+                                    var sendValue = "username="+userNameValue;
+                                    // //AJAX请求
+                                    // //创建xmlHttpRequest对象
+                                    // var xmlHttp = new XMLHttpRequest();
+                                    // //open方法
+                                    // xmlHttp.open("POST", "/checkUserName", true);
+                                    // //post方法请求
+									// xmlHttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+                                    // //send方法
+                                    // xmlHttp.send(sendValue);
+                                    //输出readstate熟悉的值
+									//console.log(xmlHttp.readyState);
+
+                                }
+
+                            }
+                        </script>
+                    </tr>
+                    <tr>
+                        <td class="td_left">
+                            <label for="password">密码</label>
+                        </td>
+                        <td class="td_right">
+                            <input type="text" id="password" name="password" placeholder="请输入密码">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_left">
+                            <label for="email">Email</label>
+                        </td>
+                        <td class="td_right">
+                            <input type="text" id="email" name="email" placeholder="请输入Email">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_left">
+                            <label for="name">姓名</label>
+                        </td>
+                        <td class="td_right">
+                            <input type="text" id="name" name="name" placeholder="请输入真实姓名">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_left">
+                            <label for="telephone">手机号</label>
+                        </td>
+                        <td class="td_right">
+                            <input type="text" id="telephone" name="telephone" placeholder="请输入您的手机号">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_left">
+                            <label for="sex">性别</label>
+                        </td>
+                        <td class="td_right gender">
+                            <input type="radio" id="sex" name="sex" value="男" checked> 男
+                            <input type="radio" name="sex" value="女"> 女
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_left">
+                            <label for="birthday">出生日期</label>
+                        </td>
+                        <td class="td_right">
+                            <input type="date" id="birthday" name="birthday" placeholder="年/月/日">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_left">
+                            <label for="check">验证码</label>
+                        </td>
+                        <td class="td_right check">
+                            <input type="text" id="check" name="check" class="check">
+                            <img src="checkCode" height="32px" alt="" onclick="changeCheckCode(this)">
+                            <script type="text/javascript">
+                                //图片点击事件
+                                function changeCheckCode(img) {
+                                    img.src = "checkCode?" + new Date().getTime();
+                                }
+                            </script>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td_left">
+                        </td>
+                        <td class="td_right check">
+                            <input type="submit" class="submit" value="注册">
+                            <span id="msg" style="color: red;"></span>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+        <div class="rg_form_right">
+            <p>
+                已有账号？
+                <a href="#">立即登录</a>
+            </p>
+        </div>
+    </div>
+</div>
+<!--引入尾部-->
+<div id="footer"></div>
+<!--导入布局js，共享header和footer-->
+<script type="text/javascript" src="js/include.js"></script>
+
+</body>
+</html>
